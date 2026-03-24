@@ -1,0 +1,9 @@
+model/
+model_phase2_backup/
+__pycache__/
+*.pyc
+*.zip
+*.pt
+*.bin
+kindly_trained_model.zip
+.DS_Store

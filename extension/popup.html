@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>KINDLY</title>
+    <link rel="stylesheet" href="popup.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header">
+            <div class="logo">Kind<span>ly</span></div>
+            <p>AI Feedback Polisher</p>
+        </div>
+
+        <div class="main">
+
+            <div class="field">
+                <div class="field-label">Harsh Text</div>
+                <textarea id="input-text"
+                    placeholder="Paste harsh text or select on any page and press Cmd+Shift+K"></textarea>
+            </div>
+
+            <div class="field">
+                <div class="field-label">Tone</div>
+                <div class="btn-grid tone-grid">
+                    <button class="pill active" data-tone="professional">💼 Professional</button>
+                    <button class="pill" data-tone="friendly">😊 Friendly</button>
+                    <button class="pill" data-tone="encouraging">💪 Encouraging</button>
+                    <button class="pill" data-tone="empathetic">🤝 Empathetic</button>
+                    <button class="pill" data-tone="humorous">😄 Humorous</button>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">Context</div>
+                <div class="btn-grid ctx-grid">
+                    <button class="pill ctx active" data-context="email">📧 Email</button>
+                    <button class="pill ctx" data-context="chat">💬 Chat</button>
+                    <button class="pill ctx" data-context="review">📝 Review</button>
+                    <button class="pill ctx" data-context="document">📄 Document</button>
+                </div>
+            </div>
+
+            <button id="convert-btn">✦ Convert to Polite</button>
+
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>Converting...</p>
+            </div>
+
+            <div id="error-msg" class="hidden"></div>
+
+            <div id="output-section" class="hidden">
+                <div class="output-label">✦ Polite Version</div>
+                <div id="output-text"></div>
+                <div id="score-line"></div>
+                <div class="action-buttons">
+                    <button id="copy-btn">📋 Copy</button>
+                    <button id="clear-btn">↺ New</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>

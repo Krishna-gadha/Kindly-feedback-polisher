@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINDLY — Feedback Polisher</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0d0d0d;
+            --cream: #faf8f4;
+            --gold: #c9a84c;
+            --gold-light: #e8d5a3;
+            --sage: #4a7c6f;
+            --rose: #c4564a;
+            --muted: #888880;
+            --card: #ffffff;
+            --border: #e8e4dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            padding: 0 40px;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 32px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: var(--ink);
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .nav-cta {
+            background: var(--ink);
+            color: var(--cream) !important;
+            padding: 10px 20px;
+            border-radius: 100px;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold) !important;
+            color: var(--ink) !important;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 32px;
+            animation: fadeSlideUp 0.8s ease forwards;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--sage);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 8vw, 88px);
+            font-weight: 900;
+            line-height: 1.0;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            animation: fadeSlideUp 0.8s 0.1s ease both;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: var(--muted);
+            max-width: 480px;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 48px;
+            animation: fadeSlideUp 0.8s 0.2s ease both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            animation: fadeSlideUp 0.8s 0.3s ease both;
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: var(--cream);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold);
+            color: var(--ink);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--border);
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+            justify-content: center;
+            animation: fadeSlideUp 0.8s 0.4s ease both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #app {
+            background: var(--ink);
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #app::before {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .app-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--cream);
+            margin-bottom: 48px;
+            line-height: 1.2;
+        }
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .field-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        textarea#input-text {
+            width: 100%;
+            height: 130px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 15px;
+            color: white;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            line-height: 1.6;
+        }
+
+        textarea#input-text::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        textarea#input-text:focus {
+            border-color: var(--gold);
+        }
+
+        .context-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .ctx-btn {
+            padding: 12px 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .ctx-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .ctx-btn.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        #convert-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            color: var(--ink);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            letter-spacing: 0.3px;
+            margin-top: 8px;
+        }
+
+        #convert-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+        }
+
+        #convert-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .scores-section {
+            margin: 28px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .score-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .score-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .score-tag {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            width: 50px;
+            flex-shrink: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(90deg, #c4564a, #c9a84c, #4a7c6f);
+        }
+
+        .score-info {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            width: 140px;
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .output-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(74, 124, 111, 0.15);
+            border: 1px solid rgba(74, 124, 111, 0.3);
+            border-radius: 12px;
+        }
+
+        .output-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--sage);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        #output-text {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .out-btn {
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        #copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        #copy-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        #clear-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        #clear-btn:hover {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        #loading {
+            text-align: center;
+            padding: 24px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .msg-polite {
+            background: rgba(74, 124, 111, 0.15);
+            border: 1px solid rgba(74, 124, 111, 0.3);
+            color: #7bc4b4;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        .msg-error {
+            background: rgba(196, 86, 74, 0.15);
+            border: 1px solid rgba(196, 86, 74, 0.3);
+            color: #e8907e;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        .how-section {
+            padding: 100px 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .how-section .section-label {
+            color: var(--muted);
+        }
+
+        .how-section .section-title {
+            color: var(--ink);
+            margin-bottom: 64px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .step-card {
+            padding: 32px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: white;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+        }
+
+        .step-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .step-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--border);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .step-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--ink);
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .features-section {
+            background: white;
+            padding: 100px 40px;
+        }
+
+        .features-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 64px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 8px 32px rgba(201, 168, 76, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        footer {
+            background: var(--ink);
+            padding: 48px 40px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--cream);
+            margin-bottom: 12px;
+        }
+
+        .footer-logo span {
+            color: var(--gold);
+        }
+
+        footer p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: all 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <nav>
+            <div class="logo">Kind<span>ly</span></div>
+            <ul class="nav-links">
+                <li><a href="#app">Try It</a></li>
+                <li><a href="#how">How It Works</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#app" class="nav-cta">Get Started →</a></li>
+            </ul>
+        </nav>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                AI-Powered Feedback Polisher
+            </div>
+            <h1>Turn <em>harsh</em> words<br>into kind ones.</h1>
+            <p class="hero-sub">KINDLY transforms aggressive, blunt feedback into professional, constructive
+                communication — instantly, privately, and for free.</p>
+            <div class="hero-actions">
+                <a href="#app" class="btn-primary">Try KINDLY Free →</a>
+                <a href="#how" class="btn-secondary">See How It Works</a>
+            </div>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-num">1,500+</div>
+                <div class="stat-label">Training Pairs</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">T5</div>
+                <div class="stat-label">Transformer Model</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">4</div>
+                <div class="stat-label">Context Modes</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">0</div>
+                <div class="stat-label">Data Stored</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="app">
+        <div class="app-inner">
+            <div class="section-label">Live Demo</div>
+            <div class="section-title">Try it right now.</div>
+            <div class="app-card">
+                <div class="field-label">Enter Harsh Text</div>
+                <textarea id="input-text"
+                    placeholder="e.g. Your code is a complete mess. Did you even test this?"></textarea>
+                <div style="margin-top:20px">
+                    <div class="field-label">Convert For</div>
+                    <div class="context-row">
+                        <button class="ctx-btn active" data-context="email">📧 Email</button>
+                        <button class="ctx-btn" data-context="chat">💬 Chat</button>
+                        <button class="ctx-btn" data-context="review">📋 Review</button>
+                        <button class="ctx-btn" data-context="document">📄 Document</button>
+                    </div>
+                </div>
+                <button id="convert-btn">✦ Convert to Polite</button>
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    Analysing and converting...
+                </div>
+                <div id="polite-msg" class="msg-polite hidden">✓ This text is already polite. No conversion needed.
+                </div>
+                <div id="error-msg" class="msg-error hidden"></div>
+                <div id="results" class="hidden">
+                    <div class="scores-section">
+                        <div class="field-label" style="margin-bottom:16px">Politeness Score</div>
+                        <div class="score-row">
+                            <span class="score-tag">Before</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" id="before-bar" style="width:0%"></div>
+                            </div>
+                            <span class="score-info" id="before-info"></span>
+                        </div>
+                        <div class="score-row">
+                            <span class="score-tag">After</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" id="after-bar" style="width:0%"></div>
+                            </div>
+                            <span class="score-info" id="after-info"></span>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <div class="output-label">✦ Polite Version</div>
+                        <div id="output-text"></div>
+                        <div class="output-actions">
+                            <button class="out-btn" id="copy-btn">📋 Copy</button>
+                            <button class="out-btn" id="clear-btn">↺ New</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how">
+        <div class="how-section">
+            <div class="section-label reveal">Process</div>
+            <div class="section-title reveal">How KINDLY works.</div>
+            <div class="steps-grid">
+                <div class="step-card reveal">
+                    <div class="step-num">01</div>
+                    <div class="step-title">Sentiment Gate</div>
+                    <div class="step-desc">VADER sentiment analysis checks if your text is actually harsh. Already
+                        polite text is returned immediately — no unnecessary processing.</div>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-num">02</div>
+                    <div class="step-title">T5 Transformer</div>
+                    <div class="step-desc">Our fine-tuned T5 model processes the harsh text, transforming the tone while
+                        preserving the original meaning completely.</div>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-num">03</div>
+                    <div class="step-title">Score & Deliver</div>
+                    <div class="step-desc">The output is scored for politeness and returned instantly. See exactly how
+                        much the tone improved — before and after.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="features-section">
+            <div class="features-inner">
+                <div class="section-label reveal">Why KINDLY</div>
+                <div class="section-title reveal" style="-webkit-text-fill-color: var(--ink); color: var(--ink);">Built
+                    different.</div>
+                <div class="features-grid">
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-title">Zero Data Storage</div>
+                        <div class="feature-desc">Your text is never saved, logged, or stored. Every conversion is
+                            processed and discarded immediately. Complete privacy by design.</div>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">Context-Aware</div>
+                        <div class="feature-desc">Choose between Email, Chat, Performance Review, or Formal Document
+                            modes. The output adapts to your context every time.</div>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Politeness Scoring</div>
+                        <div class="feature-desc">See exactly how harsh your original text was and how polite the
+                            conversion is. Measurable, transparent improvement every time.</div>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">🧩</div>
+                        <div class="feature-title">Chrome Extension</div>
+                        <div class="feature-desc">Select any text on any webpage, press Cmd+Shift+K, and convert
+                            instantly. Works everywhere — Gmail, Slack, Teams, anywhere.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Kind<span>ly</span></div>
+        <p>AI-Powered Feedback Polisher — Transform communication, preserve meaning.</p>
+    </footer>
+
+    <script>
+        const API = 'http://127.0.0.1:5000/convert';
+        let ctx = 'email';
+
+        document.querySelectorAll('.ctx-btn').forEach(b => {
+            b.addEventListener('click', () => {
+                document.querySelectorAll('.ctx-btn').forEach(x => x.classList.remove('active'));
+                b.classList.add('active');
+                ctx = b.dataset.context;
+            });
+        });
+
+        document.getElementById('convert-btn').addEventListener('click', async () => {
+            const text = document.getElementById('input-text').value.trim();
+            if (!text) { showError('Please enter some text first.'); return; }
+            setLoading(true);
+            clearAll();
+            try {
+                const res = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text, context: ctx })
+                });
+                const data = await res.json();
+                if (data.message === 'Text is already polite. No conversion needed.') {
+                    document.getElementById('polite-msg').classList.remove('hidden');
+                } else if (data.converted) {
+                    document.getElementById('output-text').textContent = data.converted;
+                    document.getElementById('before-bar').style.width = data.input_politeness_score + '%';
+                    document.getElementById('after-bar').style.width = data.output_politeness_score + '%';
+                    document.getElementById('before-info').textContent = data.input_politeness_label + ' · ' + data.input_politeness_score + '%';
+                    document.getElementById('after-info').textContent = data.output_politeness_label + ' · ' + data.output_politeness_score + '%';
+                    document.getElementById('results').classList.remove('hidden');
+                } else {
+                    showError('Conversion failed. Please try again.');
+                }
+            } catch {
+                showError('Cannot connect to KINDLY server. Make sure app.py is running on port 5000.');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            navigator.clipboard.writeText(document.getElementById('output-text').textContent).then(() => {
+                document.getElementById('copy-btn').textContent = '✓ Copied!';
+                setTimeout(() => document.getElementById('copy-btn').textContent = '📋 Copy', 2000);
+            });
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            document.getElementById('input-text').value = '';
+            clearAll();
+        });
+
+        function setLoading(v) {
+            document.getElementById('loading').classList.toggle('hidden', !v);
+            document.getElementById('convert-btn').disabled = v;
+        }
+
+        function clearAll() {
+            ['results', 'error-msg', 'polite-msg'].forEach(id =>
+                document.getElementById(id).classList.add('hidden'));
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('error-msg');
+            el.textContent = msg;
+            el.classList.remove('hidden');
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>

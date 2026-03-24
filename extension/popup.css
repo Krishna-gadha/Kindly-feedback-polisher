@@ -1,0 +1,258 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 400px;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: #0d0d0d;
+    color: white;
+}
+
+/* ── HEADER ── */
+.header {
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: #c9a84c;
+}
+
+.header p {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 400;
+    margin-top: 1px;
+}
+
+/* ── MAIN ── */
+.main {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ── FIELD ── */
+.field {}
+
+.field-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 13px;
+    color: white;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+    line-height: 1.5;
+    transition: border-color 0.2s;
+}
+
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+textarea:focus {
+    border-color: #c9a84c;
+}
+
+/* ── BUTTON GRIDS ── */
+.btn-grid {
+    display: grid;
+    gap: 6px;
+}
+
+.tone-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.ctx-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.pill {
+    padding: 8px 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.18s;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.pill:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.pill.active {
+    background: #c9a84c;
+    border-color: #c9a84c;
+    color: #0d0d0d;
+    font-weight: 600;
+}
+
+/* ── CONVERT BUTTON ── */
+#convert-btn {
+    width: 100%;
+    padding: 13px;
+    background: #c9a84c;
+    color: #0d0d0d;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+}
+
+#convert-btn:hover {
+    background: #e8d5a3;
+    transform: translateY(-1px);
+}
+
+#convert-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ── LOADING ── */
+#loading {
+    text-align: center;
+    padding: 16px;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 12px;
+}
+
+.spinner {
+    width: 26px;
+    height: 26px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-top-color: #c9a84c;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 8px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── ERROR ── */
+#error-msg {
+    background: rgba(196, 86, 74, 0.15);
+    border: 1px solid rgba(196, 86, 74, 0.3);
+    color: #e8907e;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* ── OUTPUT ── */
+#output-section {
+    background: rgba(74, 124, 111, 0.12);
+    border: 1px solid rgba(74, 124, 111, 0.3);
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.output-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #4a7c6f;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+#output-text {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.65;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+}
+
+#score-line {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.action-buttons button {
+    flex: 1;
+    padding: 8px;
+    border-radius: 7px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+#copy-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: white;
+}
+
+#copy-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+#clear-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.4);
+}
+
+#clear-btn:hover {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.hidden {
+    display: none;
+}
